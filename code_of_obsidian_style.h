@@ -1,0 +1,11 @@
+Default (Foregrond: 140 17 213  Background: 131 28 44)
+Comment line (Fore: 131 22 106)
+Number (Fore: 31 240 136)
+Keyword (Fore: 61 113 140) Keyword-inactive (140 77 132)
+Use keyword (160 0 200)
+Global classes and typedefs (200 240 89)
+String (20 240 111)
+Character ( 29 240 105 )
+Prepocesser ( 180 74 150 )
+Operator ( 34 124 195 )
+ 
