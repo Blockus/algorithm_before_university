@@ -10,139 +10,72 @@
 #include <map>
 using namespace std;
 
-const int MAX_TIME = 1440;
-const int MINI_SIZE = 505;
-const int SIZE = 250005;
+const int SIZE = 200005;
 
-int n,k;
+queue <long long> q;
 
-int en = 0;
+int head[SIZE];
 int dest[SIZE];
-int w[SIZE];
 int nxt[SIZE];
-int tm[SIZE];
-int head[MINI_SIZE];
+long w[SIZE];
+long long fire[SIZE];
+int en = 0;
 
-int d[MINI_SIZE];
-bool vis[MINI_SIZE];
+int n,m,k;
 
-void start_inicilization(){
-    for(int i = 0; i <= n; i++){ head[i] = 0;}
-}
-
-void add_edge(int u, int v, int t, int m){
+void add_edge(int u, int v, int wt){
     en++;
     dest[en] = v;
     nxt[en] = head[u];
     head[u] = en;
+    w[en] = wt;
+}
 
-    tm[en] = t;
-    w[en] = m;
+void count_fire(){
+    while(!q.empyty()){
+        int u = q.front();
+        q.pop();
+
+        int j = head[u];
+        while(j != -1){
+
+
+
+            j = next[j];
+        }
+
+    }
 }
 
 void solve(){
 
-    for(int i = 0; i < k; i++){
-        int a,b,t;
-        long m;
-
-        cin >> a >> b >> t >> m;
-
-        m -= 3000000;
-        m /= 100;
-
-        add_edge(a, b, t, m);
-        add_edge(b, a, t, m);
+    for(int i = 1; i <= SIZE; i++){
+        head[i] = -1;
+        fire[i] = -1;
     }
 
-    // Бинпоиск по значениям
+    cin >> n >> m >> k;
 
-    long l = 1;
-    long r = 10000001;
-
-    while(r - l > 1){
-
-        //cout << l << " " << r << "\n";
-
-        long med = (r + l) / 2;
-
-        // Dijkstra по времени
-
-        for(int i = 0; i <= n; i++){
-            d[i] = 2000;
-            vis[i] = false;
-        }
-
-        d[1] = 0;
-
-        for(int i = 1; i <= n; i++){
-
-            int t = -1;
-
-            for(int q = 1; q <= n; q++){
-                if(!vis[q] && (t == -1 || d[q] < d[t])) t = q;
-            }
-
-            if(d[t] == 2000) break;
-
-            vis[t] = true;
-            int j = head[t];
-
-            while(j != 0){
-                if(d[ dest[j] ] > d[t] + tm[j] && w[j] >= med) d[ dest[j] ] = d[t] + tm[j];
-                j = nxt[j];
-            }
-
-        }
-
-        if(d[n] <= MAX_TIME) l = med;
-        else r = med;
-
+    for(int i = 1; i <= k; i++){
+        int a;
+        cin >> a;
+        fire[a] = 0;
+        q.push(a);
     }
 
-    if(l != 1) cout << l;
-    else{
-         for(int i = 0; i <= n; i++){
-            d[i] = 2000;
-            vis[i] = false;
-        }
+    for(int i = 0; i < m; i++){
+        int a,b,wt;
+        cin >> a >> b >> wt;
 
-        d[1] = 0;
-
-        for(int i = 1; i <= n; i++){
-
-            int t = -1;
-
-            for(int q = 1; q <= n; q++){
-                if(!vis[q] && (t == -1 || d[q] < d[t])) t = q;
-            }
-
-            if(d[t] == 2000) break;
-
-            vis[t] = true;
-            int j = head[t];
-
-            while(j != 0){
-                if(d[ dest[j] ] > d[t] + tm[j] && w[j] >= 1) d[ dest[j] ] = d[t] + tm[j];
-                j = nxt[j];
-            }
-
-        }
-
-        if(d[n] <= MAX_TIME) cout << 1;
-        else cout << 0;
-
+        add_edge(a, b, wt);
+        add_edge(b, a, wt);
     }
 
 }
 
 int main(){
 
-    cin >> n >> k;
 
-    start_inicilization();
-
-    solve();
 
 return 0;
 }
